@@ -12,6 +12,11 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
+### `json-server db-json --routes routes.json --port 3004`
+
+Runs the server on port 3004.<br>
+Open [http://localhost:3004](http://localhost:3004) to view it in the browser.
+
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.<br>
