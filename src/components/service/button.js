@@ -1,7 +1,5 @@
 import React from 'react';
-import {Button} from 'antd';
-import {Link} from 'react-router-dom';
-import './index.css';
+import {LinkButton, StyledButton} from './styles';
 
 const OwnButton = (props) => {
       const {type, linkTo, action, title, color, disabled} = props;
@@ -9,10 +7,10 @@ const OwnButton = (props) => {
       
       switch(type){
             case "button": 
-                  template = (<Button disabled={disabled} className="button" type={color ? color : "primary"} onClick={() => action()}>{title}</Button>)
+                  template = (<StyledButton disabled={disabled} className="button" type={color ? color : "primary"} onClick={() => action()}>{title}</StyledButton>)
                   break;
             case "link":
-                  template = (<Button disabled={disabled} className="button" type="primary"><Link className="link-btn" to={linkTo}>{title}</Link></Button>)
+                  template = (<StyledButton disabled={disabled} className="button" type="primary"><LinkButton to={linkTo}>{title}</LinkButton></StyledButton>)
                   break;
             default: 
                   template = '';

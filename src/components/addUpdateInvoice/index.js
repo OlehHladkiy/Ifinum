@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import Layout from '../hoc/layout';
-import './index.css';
-import FormField from '../service/formField';
-import {updateFormField, updateDateField, generateData, populateFields, checkValid} from '../service/formActions';
-import OwnButton from '../service/button';
+import {updateFormField, updateDateField, generateData, populateFields} from '../service/formActions';
 import axios from 'axios';
 import { SERVER_URL } from '../constants';
+import AddUpdateView from './addUpdateView';
 
 const AddUpdateInvoice = (props) => {
       const [formData, setFormData] = useState({
@@ -85,34 +83,25 @@ const AddUpdateInvoice = (props) => {
             let response = null;
             if(mode === 'create'){
                   response = await axios.post(`${SERVER_URL}/invoices`, dataToSubmit);
+                  if(response.status === 201){
+                        props.history.push('/');
+                  }
             } else {
                   response = await axios.put(`${SERVER_URL}/invoices/${props.match.params.id}`, dataToSubmit);
-            }
-            if(response.status === 201){
-                  props.history.push('/');
+                  if(response.status === 200){
+                        props.history.push('/');
+                  }
             }
       }
-      console.log(formData);
+      
       return (
             <Layout title="Create Invoice">
-                  <div className="form-container">
-                        <form onSubmit={submitForm} className="form">
-                              <div className="input-group">
-                                    <FormField formData={formData.number} typeField="input" change={updateForm}/>
-                                    <FormField formData={formData.date_supply} typeField="date" change={updateDate}/>
-                                    <FormField formData={formData.date_created} typeField="date" change={updateDate}/>
-                              </div>
-                              <FormField formData={formData.comment} typeField="textarea" change={updateForm}/>
-                        </form>
-                        <div className="form-control">
-                              <OwnButton 
-                                    type="button"
-                                    title="Save"
-                                    action={submitForm}
-                                    disabled={!checkValid(formData)}
-                              />
-                        </div>
-                  </div>
+                  <AddUpdateView
+                        formData={formData}
+                        updateForm={updateForm}
+                        updateDate={updateDate}
+                        submitForm={submitForm}
+                  />
             </Layout>
       );
 }

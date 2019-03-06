@@ -1,13 +1,13 @@
 import React from 'react';
-import './index.css';
+import { MainContainer, Header } from './styles';
 
 const Layout = (props) => {
       const {title, children} = props;
       return (
-            <div className="main-container">
-                  <h2 className="header">{title}</h2>
+            <MainContainer>
+                  <Header>{title}</Header>
                   {children}
-            </div>
+            </MainContainer>
       );
 }
 

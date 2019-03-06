@@ -1,6 +1,7 @@
 import React from 'react';
-import {Input, Icon, DatePicker} from 'antd';
 import moment from 'moment';
+import { FieldContainer, StyledInput, StyledTextarea, StyledDatePicker } from './styles';
+import {Icon} from 'antd';
 
 const FormField = (props) => {
       const {typeField, formData, change} = props;
@@ -9,35 +10,33 @@ const FormField = (props) => {
       switch(typeField){
             case "input": 
                   template = (
-                        <div className="field-container">
-                              {<span className="form-label">{formData.label}</span>}
-                              <Input 
-                                    className="input"
+                        <FieldContainer>
+                              {<span>{formData.label}</span>}
+                              <StyledInput 
                                     {...formData.config} 
                                     value={formData.value} 
                                     addonAfter={<Icon type="setting" />}
                                     onChange={(e) => change({e, key: formData.key})}
                               />
-                        </div>
+                        </FieldContainer>
                   )
                   break;
             case "date":
-                  template = <div className="field-container">
-                                    {<span className="form-label">{formData.label}</span>}
-                                    <DatePicker allowClear={false} format="LL" value={moment(formData.value)} className="date-picker" onChange={(date, dateString) => change(date, dateString, formData.key)}/>
-                              </div>
+                  template = <FieldContainer>
+                                    {<span>{formData.label}</span>}
+                                    <StyledDatePicker allowClear={false} format="LL" value={moment(formData.value)} onChange={(date, dateString) => change(date, dateString, formData.key)}/>
+                              </FieldContainer>
                   break;
             case "textarea":
                   template = 
-                        <div className="field-container max-wdth">
-                              {<span className="form-label">{formData.label}</span>}
-                              <textarea 
-                                    className="text-area"
+                        <FieldContainer width="100%">
+                              {<span>{formData.label}</span>}
+                              <StyledTextarea 
                                     {...formData.config} 
                                     value={formData.value}
                                     onChange={(e) => change({e, key: formData.key})}
                               />
-                        </div>
+                        </FieldContainer>
                   break;
             default: 
                   template = null;

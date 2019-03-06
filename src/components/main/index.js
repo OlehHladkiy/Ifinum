@@ -5,7 +5,7 @@ import {withRouter} from 'react-router-dom';
 import axios from 'axios';
 import {SERVER_URL} from '../constants';
 import moment from 'moment'
-import './index.css'
+import MainView from './mainView';
 
 const MainPage = (props) => {
       const [data, setData] = useState([]);
@@ -46,31 +46,7 @@ const MainPage = (props) => {
 
       return (
             <Layout title="Invoices">
-                  <div className="action-container">
-                        <h2>Action</h2>
-                        <OwnButton
-                              type="link"
-                              linkTo="/add_update_invoice"
-                              title="Add new"
-                        />
-                  </div>
-                  <div className="invoices-container">
-                        <h2>Invoices</h2>
-                        <table>
-                              <thead>
-                                    <tr>
-                                          <th className="th">Create</th>
-                                          <th className="th">No</th>
-                                          <th className="th">Supply</th>
-                                          <th className="th">Comment</th>
-                                          <th className="th last-th" style={{textAlign: "center"}}>Action</th>
-                                    </tr>
-                              </thead>
-                              <tbody>
-                                    {renderInvoices()}
-                              </tbody>
-                        </table>
-                  </div>
+                  <MainView renderInvoices={renderInvoices}/>
             </Layout>
       );
 }
