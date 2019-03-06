@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Layout from '../hoc/layout';
 import './index.css';
 import FormField from '../service/formField';
-import {updateFormField, updateDateField, generateData, populateFields} from '../service/formActions';
+import {updateFormField, updateDateField, generateData, populateFields, checkValid} from '../service/formActions';
 import OwnButton from '../service/button';
 import axios from 'axios';
 import { SERVER_URL } from '../constants';
@@ -17,14 +17,20 @@ const AddUpdateInvoice = (props) => {
                         placeholder: "Enter number",
                         name: 'number',
                   },
+                  required: true,
+                  valid: false,
                   label: 'Number',
             }, date_supply: {
                   value: new Date(),
                   key: 'date_supply',
+                  required: true,
+                  valid: true,
                   label: 'Invoice date',
             }, date_created: {
                   value: new Date(),
                   key: 'date_created',
+                  required: true,
+                  valid: true,
                   label: 'Supply Date',
             }, comment: {
                   value: '',
@@ -34,6 +40,8 @@ const AddUpdateInvoice = (props) => {
                         placeholder: "Enter comment",
                         name: "comment",
                   },
+                  required: true,
+                  valid: false,
                   label: 'Comment',
             }
       });
@@ -59,6 +67,7 @@ const AddUpdateInvoice = (props) => {
             let newElement = {...newFormData.number};
             let generateNumber = + new Date() + '';
             newElement.value = `INV-${generateNumber.slice(-6)}`;
+            newElement.valid = true;
             newFormData.number = newElement;
             setFormData(newFormData);
       }, [])
@@ -83,7 +92,7 @@ const AddUpdateInvoice = (props) => {
                   props.history.push('/');
             }
       }
-
+      console.log(formData);
       return (
             <Layout title="Create Invoice">
                   <div className="form-container">
@@ -100,6 +109,7 @@ const AddUpdateInvoice = (props) => {
                                     type="button"
                                     title="Save"
                                     action={submitForm}
+                                    disabled={!checkValid(formData)}
                               />
                         </div>
                   </div>

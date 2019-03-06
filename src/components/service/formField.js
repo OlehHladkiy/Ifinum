@@ -24,7 +24,7 @@ const FormField = (props) => {
             case "date":
                   template = <div className="field-container">
                                     {<span className="form-label">{formData.label}</span>}
-                                    <DatePicker format="LL" value={moment(formData.value)} className="date-picker" onChange={(date, dateString) => change(date, dateString, formData.key)}/>
+                                    <DatePicker allowClear={false} format="LL" value={moment(formData.value)} className="date-picker" onChange={(date, dateString) => change(date, dateString, formData.key)}/>
                               </div>
                   break;
             case "textarea":

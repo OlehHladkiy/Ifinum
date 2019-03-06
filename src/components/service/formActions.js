@@ -1,8 +1,17 @@
+import moment from 'moment';
+
+const validate = (formElement) => {
+      if(formElement.required){
+            formElement.valid = formElement.value !== '';
+      }
+}
+
 export const updateFormField = (formData, {e, key}) => {
       const newFormData = {...formData};
       let newElement = {...newFormData[key]};
 
       newElement.value = e.target.value;
+      validate(newElement);
       newFormData[key] = newElement;
       return newFormData;
 }
@@ -12,6 +21,7 @@ export const updateDateField = (date, stringDate, key, formData) => {
       let newElement = {...newFormData[key]};
 
       newElement.value = stringDate;
+      validate(newElement);
       newFormData[key] = newElement;
       return newFormData
 }
@@ -35,7 +45,18 @@ export const populateFields = (formData, serverData) => {
 
       for(let key in newFormData){
             newFormData[key].value = serverData[key];
+            newFormData[key].valid = true;
       }
 
       return newFormData;
+}
+
+export const checkValid = (formData) => {
+      let valid = true;
+
+      for(let key in formData){
+            valid = formData[key].valid && valid;
+      }
+
+      return valid;
 }
